@@ -123,7 +123,7 @@ class Ventana_calculadora():
             self.texto_pantalla['text'] = ""
         elif num == 'BackSpace':
             if len(self.texto_pantalla['text']) > 1:
-                self.actualizar_pantalla("")
+                self.actualizar_pantalla("borrar")
             else:
                 self.texto_pantalla['text'] = ''
         else:
@@ -197,7 +197,7 @@ class Ventana_calculadora():
         if agregar == '.':
             self.texto_pantalla['text'] = self.texto_pantalla['text'] + agregar
             return
-        elif agregar == "":
+        elif agregar == "borrar":
             numero = float(re.sub(',', "", self.texto_pantalla['text'][0:-1]))
         else:
             numero = float(
