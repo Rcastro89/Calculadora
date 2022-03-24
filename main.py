@@ -114,11 +114,9 @@ class Ventana_calculadora():
             if self.val_1 != "":
                 self.definir_valores('=')
         elif num == 'Escape':
-            self.val_1 = ""
-            self.val_2 = ""
+            self.val_1, self.val_2, self.ope_ant = "", "", ""
             self.controlar = False
             self.num_activo = False
-            self.ope_ant = ""
             self.total = 0
             self.texto_pantalla['text'] = ""
         elif num == 'BackSpace':
@@ -148,11 +146,11 @@ class Ventana_calculadora():
             self.num_activo = True
         largo = len(self.texto_pantalla['text'])
         if largo > 15 and largo < 21:
-            self.texto_pantalla.config(anchor='e', font=('Arial', 16))
+            self.texto_pantalla.config(font=('Arial', 16))
         elif largo <= 15:
-            self.texto_pantalla.config(anchor='e', font=('Arial', 24))
+            self.texto_pantalla.config(font=('Arial', 24))
         elif largo > 21:
-            self.texto_pantalla.config(anchor='e', font=('Arial', 12))
+            self.texto_pantalla.config(font=('Arial', 12))
 
     def definir_valores(self, ope):
         self.controlar = True
