@@ -100,7 +100,10 @@ class Ventana_calculadora():
         self.ventana.mainloop()
 
     def but(self, event):
-        num = event.keysym
+        try:
+            num = event.keysym
+        except AttributeError:
+            num = event
         ope = {'plus': '+', 'minus': '-', 'asterisk': '*', 'slash': '//',
                'KP_Add': '+', 'KP_Subtract': '-', 'KP_Multiply': '*',
                'KP_Divide': '//'}
@@ -171,25 +174,14 @@ class Ventana_calculadora():
                     self.num_activo = True
                 self.texto_pantalla['text'] = ""
                 self.texto_pantalla['text'] = str(self.total)
+        else:
+            self.ope_ant = ope
 
     def definir_val1(self):
-        if '.' in self.texto_pantalla['text']:
-            intermedio = int(self.texto_pantalla['text'])\
-                if self.texto_pantalla['text'] != '' else ''
-        else:
-            intermedio = float(self.texto_pantalla['text'])\
-                if self.texto_pantalla['text'] != '' else ''
-        self.val_1 = str(intermedio)
+        self.val_1 = self.texto_pantalla['text']
 
     def definir_val2(self):
-        if '.' in self.texto_pantalla['text']:
-            intermedio = int(self.texto_pantalla['text'])\
-                if self.texto_pantalla['text'] != '' else ''
-        else:
-            intermedio = float(self.texto_pantalla['text'])\
-                if self.texto_pantalla['text'] != '' else ''
-        self.val_2 = str(intermedio)
-
+        self.val_2 = self.texto_pantalla['text']
 
 abrir = Ventana_calculadora()
 abrir.contenedor_principal()
