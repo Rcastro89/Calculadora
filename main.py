@@ -3,18 +3,16 @@
 from tkinter import *
 from tkinter import messagebox
 import math
+import re
 
 
 class Ventana_calculadora():
     """clase para crear la ventana visual"""
 
-    x_v = 500
-    y_v = 500
     val_1 = ""
     val_2 = ""
     controlar = False
     num_activo = False
-    totalizar = False
     ope_ant = ""
     total = 0
 
@@ -25,12 +23,14 @@ class Ventana_calculadora():
 
     def contenedor_principal(self):
         self.contenedor = Frame(self.ventana)
-        self.contenedor.config(bg='gray', width=500, height=200)
+        self.contenedor.config(bg='gray', width=313, height=320)
         self.contenedor.pack(expand=YES, fill=BOTH)
+        self.frame_pantalla = Frame(self.contenedor, width=300, height=50)
+        self.frame_pantalla.pack_propagate(False)
+        self.frame_pantalla.grid(row=0, column=0, columnspan=4)
         self.texto_pantalla = Label(
-            self.contenedor, width=15, anchor='e', font=('Arial', 24))
-        self.texto_pantalla.grid(
-            ipady=10, padx=5, pady=5, row=0, column=0, columnspan=4)
+            self.frame_pantalla, anchor='e', font=('Arial', 24))
+        self.texto_pantalla.pack(expand=YES, fill=BOTH)
         self.boton_Ce = Button(self.contenedor, width=5,
                                height=2, text='CE',
                                command=lambda: self.but("Escape"))
@@ -118,13 +118,12 @@ class Ventana_calculadora():
             self.val_2 = ""
             self.controlar = False
             self.num_activo = False
-            self.totalizar = False
             self.ope_ant = ""
             self.total = 0
             self.texto_pantalla['text'] = ""
         elif num == 'BackSpace':
             if len(self.texto_pantalla['text']) > 1:
-                self.texto_pantalla['text'] = self.texto_pantalla['text'][0:-1]
+                self.actualizar_pantalla("")
             else:
                 self.texto_pantalla['text'] = ''
         else:
@@ -144,9 +143,16 @@ class Ventana_calculadora():
                 agrego = num
             if self.controlar:
                 self.texto_pantalla['text'] = ""
+            self.actualizar_pantalla(agrego)
             self.controlar = False
             self.num_activo = True
-            self.texto_pantalla['text'] = self.texto_pantalla['text'] + agrego
+        largo = len(self.texto_pantalla['text'])
+        if largo > 15 and largo < 21:
+            self.texto_pantalla.config(anchor='e', font=('Arial', 16))
+        elif largo <= 15:
+            self.texto_pantalla.config(anchor='e', font=('Arial', 24))
+        elif largo > 21:
+            self.texto_pantalla.config(anchor='e', font=('Arial', 12))
 
     def definir_valores(self, ope):
         self.controlar = True
@@ -164,7 +170,8 @@ class Ventana_calculadora():
                     self.total = float(
                         eval(self.val_1 + self.ope_ant + self.val_2))
                     decimal, entera = math.modf(self.total)
-                    self.total = int(self.total) if decimal == 0 else self.total
+                    self.total = int(
+                        self.total) if decimal == 0 else self.total
                 except ZeroDivisionError:
                     messagebox.showerror(
                         "Error", "No se puede dividir entre 0")
@@ -176,15 +183,29 @@ class Ventana_calculadora():
                     self.val_1, self.val_2, self.ope_ant = "", "", ""
                     self.num_activo = True
                 self.texto_pantalla['text'] = ""
-                self.texto_pantalla['text'] = str(self.total)
+                self.actualizar_pantalla(str(self.total))
         else:
             self.ope_ant = ope
 
     def definir_val1(self):
-        self.val_1 = self.texto_pantalla['text']
+        self.val_1 = re.sub(',', "", self.texto_pantalla['text'])
 
     def definir_val2(self):
-        self.val_2 = self.texto_pantalla['text']
+        self.val_2 = re.sub(',', "", self.texto_pantalla['text'])
+
+    def actualizar_pantalla(self, agregar):
+        if agregar == '.':
+            self.texto_pantalla['text'] = self.texto_pantalla['text'] + agregar
+            return
+        elif agregar == "":
+            numero = float(re.sub(',', "", self.texto_pantalla['text'][0:-1]))
+        else:
+            numero = float(
+                re.sub(',', "", self.texto_pantalla['text'] + agregar))
+        decimal, entera = math.modf(numero)
+        numero = int(numero) if decimal == 0 else numero
+        self.texto_pantalla['text'] = '{0:,}'.format(numero)
+
 
 abrir = Ventana_calculadora()
 abrir.contenedor_principal()
