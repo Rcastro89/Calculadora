@@ -2,6 +2,7 @@
 
 from tkinter import *
 from tkinter import messagebox
+import math
 
 
 class Ventana_calculadora():
@@ -104,9 +105,9 @@ class Ventana_calculadora():
             num = event.keysym
         except AttributeError:
             num = event
-        ope = {'plus': '+', 'minus': '-', 'asterisk': '*', 'slash': '//',
+        ope = {'plus': '+', 'minus': '-', 'asterisk': '*', 'slash': '/',
                'KP_Add': '+', 'KP_Subtract': '-', 'KP_Multiply': '*',
-               'KP_Divide': '//'}
+               'KP_Divide': '/'}
         if num in ope.keys():
             self.definir_valores(ope[num])
         elif num == "Return" or num == 'KP_Enter':
@@ -160,8 +161,10 @@ class Ventana_calculadora():
                 self.definir_val2()
             if self.val_1 != "" and self.val_2 != "":
                 try:
-                    self.total = int(
+                    self.total = float(
                         eval(self.val_1 + self.ope_ant + self.val_2))
+                    decimal, entera = math.modf(self.total)
+                    self.total = int(self.total) if decimal == 0 else self.total
                 except ZeroDivisionError:
                     messagebox.showerror(
                         "Error", "No se puede dividir entre 0")
