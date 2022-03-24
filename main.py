@@ -14,7 +14,6 @@ class Ventana_calculadora():
     controlar = False
     num_activo = False
     totalizar = False
-    valida_punto = False
     ope_ant = ""
     total = 0
 
@@ -84,49 +83,11 @@ class Ventana_calculadora():
         self.boton_mas = Button(
             self.contenedor, width=5, height=2, text='+', command=lambda: self.but("plus"))
         self.boton_mas.grid(row=5, column=3)
-        self.teclado()
+        self.ventana.bind('<Any-KeyPress>', self.but)
         self.ventana.mainloop()
 
-    def teclado(self):
-        self.ventana.bind('<KP_1>', self.llamada)
-        self.ventana.bind('<KP_2>', self.llamada)
-        self.ventana.bind('<KP_3>', self.llamada)
-        self.ventana.bind('<KP_4>', self.llamada)
-        self.ventana.bind('<KP_5>', self.llamada)
-        self.ventana.bind('<KP_6>', self.llamada)
-        self.ventana.bind('<KP_7>', self.llamada)
-        self.ventana.bind('<KP_8>', self.llamada)
-        self.ventana.bind('<KP_9>', self.llamada)
-        self.ventana.bind('<KP_0>', self.llamada)
-        self.ventana.bind('<KP_Add>', self.llamada)
-        self.ventana.bind('<KP_Subtract>', self.llamada)
-        self.ventana.bind('<KP_Multiply>', self.llamada)
-        self.ventana.bind('<KP_Divide>', self.llamada)
-        self.ventana.bind('<KP_Enter>', self.llamada)
-        self.ventana.bind('<KP_Decimal>', self.llamada)
-        self.ventana.bind('1', self.llamada)
-        self.ventana.bind('2', self.llamada)
-        self.ventana.bind('3', self.llamada)
-        self.ventana.bind('4', self.llamada)
-        self.ventana.bind('5', self.llamada)
-        self.ventana.bind('6', self.llamada)
-        self.ventana.bind('7', self.llamada)
-        self.ventana.bind('8', self.llamada)
-        self.ventana.bind('9', self.llamada)
-        self.ventana.bind('0', self.llamada)
-        self.ventana.bind('<plus>', self.llamada)
-        self.ventana.bind('<minus>', self.llamada)
-        self.ventana.bind('<asterisk>', self.llamada)
-        self.ventana.bind('<slash>', self.llamada)
-        self.ventana.bind('<Return>', self.llamada)
-        self.ventana.bind('<period>', self.llamada)
-        self.ventana.bind('<BackSpace>', self.llamada)
-        self.ventana.bind('<Escape>', self.llamada)
-
-    def llamada(self, event):
-        self.but(event.keysym)
-
-    def but(self, num):
+    def but(self, event):
+        num = event.keysym
         ope = {'plus': '+', 'minus': '-', 'asterisk': '*', 'slash': '//',
                'KP_Add': '+', 'KP_Subtract': '-', 'KP_Multiply': '*', 'KP_Divide': '//'}
         if num in ope.keys():
@@ -140,29 +101,26 @@ class Ventana_calculadora():
             self.controlar = False
             self.num_activo = False
             self.totalizar = False
-            self.valida_punto = False
             self.ope_ant = ""
             self.total = 0
             self.texto_pantalla['text'] = ""
         elif num == 'BackSpace':
             if len(self.texto_pantalla['text']) > 1:
-                if self.texto_pantalla['text'][-1] == '.':
-                    self.valida_punto = False
                 self.texto_pantalla['text'] = self.texto_pantalla['text'][0:-1]
             else:
-                self.texto_pantalla['text'] = '0'
+                self.texto_pantalla['text'] = ''
         else:
             dic_num = {'KP_1': '1', 'KP_2': '2', 'KP_3': '3', 'KP_4': '4', 'KP_5': '5',
                        'KP_6': '6', 'KP_7': '7', 'KP_8': '8', 'KP_9': '9', 'KP_0': '0'}
+            dic_num_num = {'1': '1', '2': '2', '3': '3', '4': '4', '5': '5',
+                       '6': '6', '7': '7', '8': '8', '9': '9', '0': '0'}
             dic_punto = {'period': '.', 'KP_Decimal': '.'}
             agrego = ""
             if num in dic_num.keys():
                 agrego = dic_num[num]
             elif num in dic_punto.keys():
-                if self.valida_punto == False:
-                    agrego = dic_punto[num]
-                    self.valida_punto = True
-            else:
+                agrego = '.' if '.' not in self.texto_pantalla['text'] else ""
+            elif num in dic_num_num.keys():
                 agrego = num
             if self.controlar == True:
                 self.texto_pantalla['text'] = ""
@@ -191,24 +149,20 @@ class Ventana_calculadora():
                     self.val_1 = str(self.total)
                     self.val_2 = ""
                 else:
-                    self.val_1 = ""
-                    self.val_2 = ""
-                    self.ope_ant = ""
+                    self.val_1, self.val_2, self.ope_ant = "", "", ""
                     self.num_activo = True
-                    self.valida_punto = False
                 self.texto_pantalla['text'] = ""
                 self.texto_pantalla['text'] = str(self.total)
-        self.valida_punto = False
     
     def definir_val1(self):
-        if self.valida_punto == False:
+        if '.' in self.texto_pantalla['text']:
             intermedio = int(self.texto_pantalla['text']) if self.texto_pantalla['text'] != '' else ''
         else:
             intermedio = float(self.texto_pantalla['text']) if self.texto_pantalla['text'] != '' else ''
         self.val_1 = str(intermedio)
     
     def definir_val2(self):
-        if self.valida_punto == False:
+        if '.' in self.texto_pantalla['text']:
             intermedio = int(self.texto_pantalla['text']) if self.texto_pantalla['text'] != '' else ''
         else:
             intermedio = float(self.texto_pantalla['text']) if self.texto_pantalla['text'] != '' else ''
