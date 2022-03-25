@@ -223,6 +223,6 @@ class Ventana_calculadora():
             numero = int(numero) if decimal[0] == 0 else numero
             self.texto_pantalla['text'] = '{0:,}'.format(numero)
 
-
-abrir = Ventana_calculadora()
-abrir.contenedor_principal()
+if __name__ == "__main__":
+    abrir = Ventana_calculadora()
+    abrir.contenedor_principal()

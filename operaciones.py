@@ -25,9 +25,17 @@ def realizar_operacion(val1, val2, operador):
             messagebox.showerror("Error", "No se calcula Raiz de numeros negativos")
             resultado = 0
     elif operador == 'Po':
-        resultado = float(val1) ** 2
+        try:
+            resultado = float(val1) ** 2
+        except OverflowError:
+            messagebox.showerror("Error", "Numero muy grande no soportado")
+            resultado = 0
     decimal = math.modf(resultado)
-    resultado = int(resultado) if decimal[0] == 0 else resultado
+    try:
+        resultado = int(resultado) if decimal[0] == 0 else resultado
+    except OverflowError:
+        messagebox.showerror("Error", "Numero muy grande no soportado")
+        resultado = 0
     return resultado
 
 def validar_estatus(val1, val2, controlar, num_activo, ope_ant, total):
