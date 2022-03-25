@@ -36,6 +36,10 @@ class Ventana_calculadora():
                                height=2, text='CE',
                                command=lambda: self.but("Escape"))
         self.boton_Ce.grid(row=1, column=0)
+        self.boton_Rc = Button(self.contenedor, width=5,
+                               height=2, text='√',
+                               command=lambda: self.but("Raiz"))
+        self.boton_Rc.grid(row=1, column=1)
         self.boton_borrar = Button(self.contenedor, width=5,
                                    height=2, text='<--',
                                    command=lambda: self.but("BackSpace"))
@@ -108,7 +112,7 @@ class Ventana_calculadora():
             num = event
         ope = {'plus': '+', 'minus': '-', 'asterisk': '*', 'slash': '/',
                'KP_Add': '+', 'KP_Subtract': '-', 'KP_Multiply': '*',
-               'KP_Divide': '/'}
+               'KP_Divide': '/', 'Raiz': 'Rc'}
         if num in ope.keys():
             self.definir_valores(ope[num])
         elif num == "Return" or num == 'KP_Enter':
@@ -164,6 +168,9 @@ class Ventana_calculadora():
                 self.definir_val1()
             elif self.val_2 == "":
                 self.definir_val2()
+            if ope == 'Rc':
+                self.ope_ant = ope
+                self.val_2 = '1'
             if self.val_1 != "" and self.val_2 != "":
                 self.total = realizar_operacion(self.val_1, self.val_2, self.ope_ant)
                 self.ope_ant = ope
