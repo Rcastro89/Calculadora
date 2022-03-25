@@ -4,6 +4,7 @@ from tkinter import *
 from tkinter import messagebox
 import math
 import re
+from operaciones import seleccion_operacion
 
 
 class Ventana_calculadora():
@@ -165,9 +166,8 @@ class Ventana_calculadora():
                 self.definir_val2()
             if self.val_1 != "" and self.val_2 != "":
                 try:
-                    self.total = float(
-                        eval(self.val_1 + self.ope_ant + self.val_2))
-                    decimal, entera = math.modf(self.total)
+                    self.total = seleccion_operacion(self.val_1, self.val_2, self.ope_ant)
+                    decimal = math.modf(self.total)
                     self.total = int(
                         self.total) if decimal == 0 else self.total
                 except ZeroDivisionError:
