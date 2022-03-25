@@ -4,7 +4,7 @@ from tkinter import *
 from tkinter import messagebox
 import math
 import re
-from operaciones import realizar_operacion
+from operaciones import realizar_operacion, validar_estatus
 
 
 class Ventana_calculadora():
@@ -40,6 +40,10 @@ class Ventana_calculadora():
                                height=2, text='√',
                                command=lambda: self.but("Raiz"))
         self.boton_Rc.grid(row=1, column=1)
+        self.boton_Potencia = Button(self.contenedor, width=5,
+                               height=2, text='x²',
+                               command=lambda: self.but("Potencia"))
+        self.boton_Potencia.grid(row=1, column=2)
         self.boton_borrar = Button(self.contenedor, width=5,
                                    height=2, text='<--',
                                    command=lambda: self.but("BackSpace"))
@@ -112,7 +116,7 @@ class Ventana_calculadora():
             num = event
         ope = {'plus': '+', 'minus': '-', 'asterisk': '*', 'slash': '/',
                'KP_Add': '+', 'KP_Subtract': '-', 'KP_Multiply': '*',
-               'KP_Divide': '/', 'Raiz': 'Rc'}
+               'KP_Divide': '/', 'Raiz': 'Rc', 'Potencia': 'Po'}
         if num in ope.keys():
             self.definir_valores(ope[num])
         elif num == "Return" or num == 'KP_Enter':
@@ -160,7 +164,7 @@ class Ventana_calculadora():
     def definir_valores(self, ope):
         self.controlar = True
         self.total = 0
-        if self.num_activo:
+        if self.num_activo or ope == 'Rc' or ope == 'Po':
             self.num_activo = False
             if self.ope_ant == "":
                 self.ope_ant = ope
@@ -168,9 +172,9 @@ class Ventana_calculadora():
                 self.definir_val1()
             elif self.val_2 == "":
                 self.definir_val2()
-            if ope == 'Rc':
-                self.ope_ant = ope
+            if ope == 'Rc' or ope == 'Po':
                 self.val_2 = '1'
+                self.ope_ant = ope
             if self.val_1 != "" and self.val_2 != "":
                 self.total = realizar_operacion(self.val_1, self.val_2, self.ope_ant)
                 self.ope_ant = ope
