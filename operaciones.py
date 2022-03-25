@@ -27,7 +27,7 @@ def realizar_operacion(val1, val2, operador):
     elif operador == 'Po':
         resultado = float(val1) ** 2
     decimal = math.modf(resultado)
-    resultado = int(resultado) if decimal == 0 else resultado
+    resultado = int(resultado) if decimal[0] == 0 else resultado
     return resultado
 
 def validar_estatus(val1, val2, controlar, num_activo, ope_ant, total):
