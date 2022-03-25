@@ -4,7 +4,7 @@ from tkinter import *
 from tkinter import messagebox
 import math
 import re
-from operaciones import seleccion_operacion
+from operaciones import realizar_operacion
 
 
 class Ventana_calculadora():
@@ -165,14 +165,7 @@ class Ventana_calculadora():
             elif self.val_2 == "":
                 self.definir_val2()
             if self.val_1 != "" and self.val_2 != "":
-                try:
-                    self.total = seleccion_operacion(self.val_1, self.val_2, self.ope_ant)
-                    decimal = math.modf(self.total)
-                    self.total = int(
-                        self.total) if decimal == 0 else self.total
-                except ZeroDivisionError:
-                    messagebox.showerror(
-                        "Error", "No se puede dividir entre 0")
+                self.total = realizar_operacion(self.val_1, self.val_2, self.ope_ant)
                 self.ope_ant = ope
                 if self.ope_ant != '=':
                     self.val_1 = str(self.total)
