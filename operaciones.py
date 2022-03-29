@@ -38,10 +38,13 @@ def realizar_operacion(val1, val2, operador):
         resultado = 0
     return resultado
 
-def porcentaje(ope_ant, valor):
-    retorno =  float(valor)
-    if ope_ant == '+':
-        return retorno * 10
+def porcentaje(ope_ant, valor2, valor1):
+    retorno =  float(valor2) / 100
+    valor1 = float(valor1)
+    if ope_ant == '+' or ope_ant == '-':
+        return str(retorno * valor1)
+    elif ope_ant == '*' or ope_ant == '/':
+        return str(retorno)
 
 def validar_estatus(val1, val2, controlar, num_activo, ope_ant, ope, total):
     print('val 1 = {}'.format(val1))

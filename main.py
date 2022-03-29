@@ -4,7 +4,7 @@ from tkinter import *
 from tkinter import messagebox
 import math
 import re
-from operaciones import realizar_operacion, validar_estatus
+from operaciones import realizar_operacion, porcentaje
 
 
 class Ventana_calculadora():
@@ -44,7 +44,7 @@ class Ventana_calculadora():
         self.boton_borrar.grid(row=1, column=3)
         self.boton_signo = Button(ct, c, text='+/-', command=lambda: self.but("Signo"))
         self.boton_signo.grid(row=2, column=0)
-        self.boton_porciento = Button(ct, c, text='%', command=lambda: self.but("Porcien"))
+        self.boton_porciento = Button(ct, c, text='%', command=lambda: self.but("percent"))
         self.boton_porciento.grid(row=2, column=1)
         self.boton_7 = Button(ct, c, text='7', command=lambda: self.but("7"))
         self.boton_7.grid(row=3, column=0)
@@ -89,7 +89,7 @@ class Ventana_calculadora():
         ope = {'plus': '+', 'minus': '-', 'asterisk': '*', 'slash': '/',
                'KP_Add': '+', 'KP_Subtract': '-', 'KP_Multiply': '*',
                'KP_Divide': '/', 'Raiz': 'Rc', 'Potencia': 'Po',
-               'Porcien': '%'}
+               'percent': '%'}
         if num in ope.keys():
             self.definir_valores(ope[num])
         elif num == "Return" or num == 'KP_Enter':
@@ -153,8 +153,8 @@ class Ventana_calculadora():
                 self.definir_val1()
             elif self.val_2 == "":
                 self.definir_val2()
-                validar_estatus(self.val_1, self.val_2, self.controlar,
-                                self.num_activo, self.ope_ant, ope, self.total)
+                if ope == '%':
+                    self.val_2 = porcentaje(self.ope_ant, self.val_2, self.val_1)
             if ope == 'Rc' or ope == 'Po':
                 self.val_2 = '1'
                 self.ope_ant = ope
@@ -162,7 +162,7 @@ class Ventana_calculadora():
                 self.total = realizar_operacion(
                     self.val_1, self.val_2, self.ope_ant)
                 self.ope_ant = ope
-                if self.ope_ant != '=':
+                if self.ope_ant != '=' and self.ope_ant != '%':
                     self.val_1 = str(self.total)
                     self.val_2 = ""
                 else:
