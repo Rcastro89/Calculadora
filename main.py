@@ -32,87 +32,51 @@ class Ventana_calculadora():
         self.texto_pantalla = Label(
             self.frame_pantalla, anchor='e', font=('Arial', 24))
         self.texto_pantalla.pack(expand=YES, fill=BOTH)
-        self.boton_Ce = Button(self.contenedor, width=5,
-                               height=2, text='CE',
-                               command=lambda: self.but("Escape"))
+        c = {'width': 5, 'height': 2}
+        ct = self.contenedor
+        self.boton_Ce = Button(ct, c, text='CE', command=lambda: self.but("Escape"))
         self.boton_Ce.grid(row=1, column=0)
-        self.boton_Rc = Button(self.contenedor, width=5,
-                               height=2, text='√',
-                               command=lambda: self.but("Raiz"))
+        self.boton_Rc = Button(ct, c, text='√', command=lambda: self.but("Raiz"))
         self.boton_Rc.grid(row=1, column=1)
-        self.boton_Potencia = Button(self.contenedor, width=5,
-                               height=2, text='x²',
-                               command=lambda: self.but("Potencia"))
+        self.boton_Potencia = Button(ct, c, text='x²',command=lambda: self.but("Potencia"))
         self.boton_Potencia.grid(row=1, column=2)
-        self.boton_borrar = Button(self.contenedor, width=5,
-                                   height=2, text='<--',
-                                   command=lambda: self.but("BackSpace"))
+        self.boton_borrar = Button(ct, c, text='<--', command=lambda: self.but("BackSpace"))
         self.boton_borrar.grid(row=1, column=3)
-        self.boton_signo = Button(self.contenedor, width=5,
-                                   height=2, text='+/-',
-                                   command=lambda: self.but("Signo"))
+        self.boton_signo = Button(ct, c, text='+/-', command=lambda: self.but("Signo"))
         self.boton_signo.grid(row=2, column=0)
-        self.boton_porciento = Button(self.contenedor, width=5,
-                                   height=2, text='%',
-                                   command=lambda: self.but("Porcien"))
+        self.boton_porciento = Button(ct, c, text='%', command=lambda: self.but("Porcien"))
         self.boton_porciento.grid(row=2, column=1)
-        self.boton_7 = Button(self.contenedor, width=5,
-                              height=2, text='7',
-                              command=lambda: self.but("7"))
+        self.boton_7 = Button(ct, c, text='7', command=lambda: self.but("7"))
         self.boton_7.grid(row=3, column=0)
-        self.boton_8 = Button(self.contenedor, width=5,
-                              height=2, text='8',
-                              command=lambda: self.but("8"))
+        self.boton_8 = Button(ct, c, text='8', command=lambda: self.but("8"))
         self.boton_8.grid(row=3, column=1)
-        self.boton_9 = Button(self.contenedor, width=5,
-                              height=2, text='9',
-                              command=lambda: self.but("9"))
+        self.boton_9 = Button(ct, c, text='9', command=lambda: self.but("9"))
         self.boton_9.grid(row=3, column=2)
-        self.boton_por = Button(self.contenedor, width=5, height=2, text='x',
-                                command=lambda: self.but("asterisk"))
+        self.boton_por = Button(ct, c, text='x', command=lambda: self.but("asterisk"))
         self.boton_por.grid(row=3, column=3)
-        self.boton_4 = Button(self.contenedor, width=5,
-                              height=2, text='4',
-                              command=lambda: self.but("4"))
+        self.boton_4 = Button(ct, c, text='4', command=lambda: self.but("4"))
         self.boton_4.grid(row=4, column=0)
-        self.boton_5 = Button(self.contenedor, width=5,
-                              height=2, text='5',
-                              command=lambda: self.but("5"))
+        self.boton_5 = Button(ct, c, text='5', command=lambda: self.but("5"))
         self.boton_5.grid(row=4, column=1)
-        self.boton_6 = Button(self.contenedor, width=5,
-                              height=2, text='6',
-                              command=lambda: self.but("6"))
+        self.boton_6 = Button(ct, c, text='6', command=lambda: self.but("6"))
         self.boton_6.grid(row=4, column=2)
-        self.boton_entre = Button(self.contenedor, width=5, height=2, text='/',
-                                  command=lambda: self.but("slash"))
+        self.boton_entre = Button(ct, c, text='/', command=lambda: self.but("slash"))
         self.boton_entre.grid(row=4, column=3)
-        self.boton_1 = Button(self.contenedor, width=5,
-                              height=2, text='1',
-                              command=lambda: self.but("1"))
+        self.boton_1 = Button(ct, c, text='1', command=lambda: self.but("1"))
         self.boton_1.grid(row=5, column=0)
-        self.boton_2 = Button(self.contenedor, width=5,
-                              height=2, text='2',
-                              command=lambda: self.but("2"))
+        self.boton_2 = Button(ct, c, text='2', command=lambda: self.but("2"))
         self.boton_2.grid(row=5, column=1)
-        self.boton_3 = Button(self.contenedor, width=5,
-                              height=2, text='3',
-                              command=lambda: self.but("3"))
+        self.boton_3 = Button(ct, c, text='3', command=lambda: self.but("3"))
         self.boton_3.grid(row=5, column=2)
-        self.boton_menos = Button(self.contenedor, width=5, height=2, text='-',
-                                  command=lambda: self.but("minus"))
+        self.boton_menos = Button(ct, c, text='-', command=lambda: self.but("minus"))
         self.boton_menos.grid(row=5, column=3)
-        self.boton_0 = Button(self.contenedor, width=5,
-                              height=2, text='0',
-                              command=lambda: self.but("0"))
+        self.boton_0 = Button(ct, c, text='0', command=lambda: self.but("0"))
         self.boton_0.grid(row=6, column=0)
-        self.boton_punto = Button(self.contenedor, width=5, height=2, text='.',
-                                  command=lambda: self.but("period"))
+        self.boton_punto = Button(ct, c, text='.', command=lambda: self.but("period"))
         self.boton_punto.grid(row=6, column=1)
-        self.boton_igual = Button(self.contenedor, width=5, height=2, text='=',
-                                  command=lambda: self.but("Return"))
+        self.boton_igual = Button(ct, c, text='=', command=lambda: self.but("Return"))
         self.boton_igual.grid(row=6, column=2)
-        self.boton_mas = Button(self.contenedor, width=5, height=2, text='+',
-                                command=lambda: self.but("plus"))
+        self.boton_mas = Button(ct, c, text='+', command=lambda: self.but("plus"))
         self.boton_mas.grid(row=6, column=3)
         self.ventana.bind('<Any-KeyPress>', self.but)
         self.ventana.mainloop()
@@ -124,7 +88,8 @@ class Ventana_calculadora():
             num = event
         ope = {'plus': '+', 'minus': '-', 'asterisk': '*', 'slash': '/',
                'KP_Add': '+', 'KP_Subtract': '-', 'KP_Multiply': '*',
-               'KP_Divide': '/', 'Raiz': 'Rc', 'Potencia': 'Po'}
+               'KP_Divide': '/', 'Raiz': 'Rc', 'Potencia': 'Po',
+               'Porcien': '%'}
         if num in ope.keys():
             self.definir_valores(ope[num])
         elif num == "Return" or num == 'KP_Enter':
@@ -144,9 +109,11 @@ class Ventana_calculadora():
         elif num == 'Signo':
             if self.texto_pantalla['text'] != '0':
                 if '-' not in self.texto_pantalla['text']:
-                    self.texto_pantalla['text'] = '-' + self.texto_pantalla['text']
+                    self.texto_pantalla['text'] = '-' + \
+                        self.texto_pantalla['text']
                 else:
-                    self.texto_pantalla['text'] = re.sub('-', "", self.texto_pantalla['text'])
+                    self.texto_pantalla['text'] = re.sub(
+                        '-', "", self.texto_pantalla['text'])
         else:
             dic_num = {'KP_1': '1', 'KP_2': '2', 'KP_3': '3',
                        'KP_4': '4', 'KP_5': '5',
@@ -186,11 +153,14 @@ class Ventana_calculadora():
                 self.definir_val1()
             elif self.val_2 == "":
                 self.definir_val2()
+                validar_estatus(self.val_1, self.val_2, self.controlar,
+                                self.num_activo, self.ope_ant, ope, self.total)
             if ope == 'Rc' or ope == 'Po':
                 self.val_2 = '1'
                 self.ope_ant = ope
             if self.val_1 != "" and self.val_2 != "":
-                self.total = realizar_operacion(self.val_1, self.val_2, self.ope_ant)
+                self.total = realizar_operacion(
+                    self.val_1, self.val_2, self.ope_ant)
                 self.ope_ant = ope
                 if self.ope_ant != '=':
                     self.val_1 = str(self.total)
@@ -215,13 +185,18 @@ class Ventana_calculadora():
                 self.texto_pantalla['text'] = self.texto_pantalla['text'] + agregar
                 return
             elif agregar == "borrar":
-                numero = float(re.sub(',', "", self.texto_pantalla['text'][0:-1]))
+                numero = float(
+                    re.sub(',', "", self.texto_pantalla['text'][0:-1]))
             else:
                 numero = float(
                     re.sub(',', "", self.texto_pantalla['text'] + agregar))
             decimal = math.modf(numero)
-            numero = int(numero) if decimal[0] == 0 else numero
-            self.texto_pantalla['text'] = '{0:,}'.format(numero)
+            if len(str(int(decimal[1]))) > 16:
+                messagebox.showerror("Error", "Numero muy grande no soportado")
+            else:
+                numero = int(numero) if decimal[0] == 0 else numero
+                self.texto_pantalla['text'] = '{0:,}'.format(numero)
+
 
 if __name__ == "__main__":
     abrir = Ventana_calculadora()
